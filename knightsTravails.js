@@ -23,6 +23,21 @@ function retrievePossibleNextPositions(arrPosition) {
     return possiblePositions;
 }
 
+function isValidPosition(position) {
+    if (position.length !== 2) {
+        return false;
+    } else if (
+        position[0] >= 0 &&
+        position[0] <= 7 &&
+        position[1] >= 0 &&
+        position[1] <= 7
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function areArraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -35,6 +50,10 @@ function areArraysEqual(arr1, arr2) {
     }
 
     return true;
+}
+
+function arrayToString(array) {
+    return JSON.stringify(array);
 }
 
 function graphNode(coordinates) {
