@@ -36,3 +36,17 @@ function areArraysEqual(arr1, arr2) {
 
     return true;
 }
+
+function graphNode(coordinates) {
+    let path = [];
+
+    function updatePath(vertex) {
+        path.push(vertex);
+    }
+
+    return {
+        position: coordinates,
+        path,
+        updatePath,
+    };
+}
