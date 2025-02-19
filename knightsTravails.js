@@ -38,6 +38,11 @@ function isValidPosition(position) {
     }
 }
 
+function isPositionInSet(array, set) {
+    const stringPosition = arrayToString(array);
+    return set.has(stringPosition);
+}
+
 function areArraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -56,8 +61,8 @@ function arrayToString(array) {
     return JSON.stringify(array);
 }
 
-function graphNode(coordinates) {
-    let path = [];
+function graphNode(coordinates, currentPath) {
+    let path = currentPath;
 
     function updatePath(vertex) {
         path.push(vertex);
