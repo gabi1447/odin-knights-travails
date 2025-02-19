@@ -74,3 +74,64 @@ function graphNode(coordinates, currentPath) {
         updatePath,
     };
 }
+
+function printShortPath(path) {
+    console.log(`You made it in ${path.length - 1} moves! Here's your path:`);
+    for (move of path) {
+        console.log(move);
+    }
+}
+
+function knightMoves(origin, destination) {
+    if (isValidPosition(origin) && isValidPosition(destination)) {
+    } else {
+        return null;
+    }
+
+    let queue = [];
+    let visited = new Set();
+    let shortPath;
+    let hasDestinationBeenFound = false;
+
+    const originNode = graphNode(origin, [origin]);
+    queue.push(originNode);
+
+    if (areArraysEqual(originNode.position, destination)) {
+        shortPath = originNode.path;
+        printShortPath(shortPath);
+        return;
+    }
+
+    while (true) {
+        let currentNode = queue[0];
+
+        visited.add(arrayToString(currentNode.position));
+        const legalNextMoves = retrievePossibleNextPositions(
+            currentNode.position
+        );
+
+        for (let move of legalNextMoves) {
+            if (isPositionInSet(move, visited)) {
+                continue;
+            } else if (areArraysEqual(move, destination)) {
+                const destinationNode = graphNode(move, currentNode.path);
+                destinationNode.updatePath(move);
+                shortPath = destinationNode.path;
+                hasDestinationBeenFound = true;
+                break;
+            } else {
+                const newNode = graphNode(move, [...currentNode.path]);
+                newNode.updatePath(move);
+                queue.push(newNode);
+            }
+        }
+
+        if (hasDestinationBeenFound) {
+            break;
+        }
+
+        queue.shift();
+    }
+
+    printShortPath(shortPath);
+}
